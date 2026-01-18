@@ -1,0 +1,774 @@
+% A LaTeX template for MSc Thesis submissions to 
+% Politecnico di Milano (PoliMi) - School of Industrial and Information Engineering
+%
+% S. Bonetti, A. Gruttadauria, G. Mescolini, A. Zingaro
+% e-mail: template-tesi-ingind@polimi.it
+%
+% Last Revision: October 2021
+%
+% Copyright 2021 Politecnico di Milano, Italy. NC-BY
+
+\documentclass{Configuration_Files/PoliMi3i_thesis}
+
+%------------------------------------------------------------------------------
+%	REQUIRED PACKAGES AND  CONFIGURATIONS
+%------------------------------------------------------------------------------
+
+% CONFIGURATIONS
+\usepackage{parskip} % For paragraph layout
+\usepackage{setspace} % For using single or double spacing
+\usepackage{emptypage} % To insert empty pages
+\usepackage{multicol} % To write in multiple columns (executive summary)
+\setlength\columnsep{15pt} % Column separation in executive summary
+\setlength\parindent{0pt} % Indentation
+\raggedbottom 
+
+% PACKAGES FOR TITLES
+\usepackage{titlesec}
+% \titlespacing{\section}{left spacing}{before spacing}{after spacing}
+\titlespacing{\section}{0pt}{3.3ex}{2ex}
+\titlespacing{\subsection}{0pt}{3.3ex}{1.65ex}
+\titlespacing{\subsubsection}{0pt}{3.3ex}{1ex}
+\usepackage{color}
+
+% PACKAGES FOR LANGUAGE AND FONT
+\usepackage[english]{babel} % The document is in English  
+\usepackage[utf8]{inputenc} % UTF8 encoding
+\usepackage[T1]{fontenc} % Font encoding
+\usepackage[11pt]{moresize} % Big fonts
+
+% PACKAGES FOR IMAGES
+\usepackage{graphicx}
+\usepackage{transparent} % Enables transparent images
+\usepackage{eso-pic} % For the background picture on the title page
+\usepackage{subfig} % Numbered and caption subfigures using \subfloat.
+\usepackage{tikz} % A package for high-quality hand-made figures.
+\usetikzlibrary{}
+\graphicspath{{./Images/}} % Directory of the images
+\usepackage{caption} % Coloured captions
+\usepackage{xcolor} % Coloured captions
+\usepackage{color}
+\usepackage{amsthm,thmtools,xcolor} % Coloured "Theorem"
+\usepackage{float}
+
+% STANDARD MATH PACKAGES
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{bm}
+\usepackage[overload]{empheq} % For braced-style systems of equations.
+\usepackage{fix-cm} % To override original LaTeX restrictions on sizes
+
+% PACKAGES FOR TABLES
+\usepackage{tabularx}
+\usepackage{longtable} % Tables that can span several pages
+\usepackage{colortbl}
+
+% PACKAGES FOR ALGORITHMS (PSEUDO-CODE)
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+% PACKAGES FOR REFERENCES & BIBLIOGRAPHY
+\usepackage[colorlinks=true,linkcolor=black,anchorcolor=black,citecolor=black,filecolor=black,menucolor=black,runcolor=black,urlcolor=black]{hyperref} % Adds clickable links at references
+\usepackage{cleveref}
+\usepackage[square, numbers, sort&compress]{natbib} % Square brackets, citing references with numbers, citations sorted by appearance in the text and compressed
+\bibliographystyle{abbrvnat} % You may use a different style adapted to your field
+
+% OTHER PACKAGES
+\usepackage{listings}
+\usepackage{pdfpages} % To include a pdf file
+\usepackage{afterpage}
+\usepackage{lipsum} % DUMMY PACKAGE
+\usepackage{fancyhdr} % For the headers
+\usepackage{minted}
+\fancyhf{}
+
+% Input of configuration file. Do not change config.tex file unless you really know what you are doing. 
+\input{Configuration_Files/config}
+\input{code_style}
+
+%----------------------------------------------------------------------------
+%	NEW COMMANDS DEFINED
+%----------------------------------------------------------------------------
+
+% EXAMPLES OF NEW COMMANDS
+\newcommand{\bea}{\begin{eqnarray}} % Shortcut for equation arrays
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\e}[1]{\times 10^{#1}}  % Powers of 10 notation
+
+%----------------------------------------------------------------------------
+%	ADD YOUR PACKAGES (be careful of package interaction)
+%----------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------
+%	ADD YOUR DEFINITIONS AND COMMANDS (be careful of existing commands)
+%----------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------
+%	BEGIN OF YOUR DOCUMENT
+%----------------------------------------------------------------------------
+\begin{document}
+
+\fancypagestyle{plain}{%
+\fancyhf{} % Clear all header and footer fields
+\fancyhead[RO,RE]{\thepage} %RO=right odd, RE=right even
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}}
+
+%----------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------
+
+\pagestyle{empty} % No page numbers
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the preamble pages
+
+\puttitle{
+	title=Numerical Analysis For Machine Learning Project,
+    subtitle= Movie Recommendation System using Sentiment Analysis from Microblogging Data,
+	name1=Irfan Cela - 10694934,
+    name2=Fabio Lusha - 10882532,
+	name3=Bianca C. Savoiu Marinas - 10684465,    
+	academicyear=2023-2024,
+	groupnumber=70
+} 
+% These info will be put into your Title page 
+
+%----------------------------------------------------------------------------
+%	PREAMBLE PAGES: ABSTRACT (inglese e italiano), EXECUTIVE SUMMARY
+%----------------------------------------------------------------------------
+\startpreamble
+\setcounter{page}{1} % Set page counter to 1
+
+%----------------------------------------------------------------------------
+%	LIST OF CONTENTS/FIGURES/TABLES/SYMBOLS
+%----------------------------------------------------------------------------
+
+% TABLE OF CONTENTS
+\thispagestyle{empty}
+\tableofcontents % Table of contents 
+\thispagestyle{empty}
+\cleardoublepage
+
+%-------------------------------------------------------------------------
+%	THESIS MAIN TEXT
+%-------------------------------------------------------------------------
+% In the main text of your thesis you can write the chapters in two different ways:
+%
+%(1) As presented in this template you can write:
+%    \chapter{Title of the chapter}
+%    *body of the chapter*
+%
+%(2) You can write your chapter in a separated .tex file and then include it in the main file with the following command:
+%    \chapter{Title of the chapter}
+%    \input{chapter_file.tex}
+%
+% Especially for long thesis, we recommend you the second option.
+
+\addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
+\mainmatter % Begin numeric (1,2,3...) page numbering
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{language=SQL, style=mystyle}
+
+
+\chapter{Assigned Paper and Recommender System task}
+\label{ch:chapter_1}%
+% The \label{...}% enables to remove the small indentation that is generated, always leave the % symbol.
+
+\section{Problem description}
+\label{sec:section_1_1}%
+In this project, we developed some movie recommender systems leveraging sentiment analysis data from the \textbf{MovieTweetings dataset}, trying to follow the ideas outlined in the given paper \verb|"Movie Recommendation System Using Sentiment Analysis from|\\ \verb|Microblogging Data"|. The paper combines sentiment analysis with traditional recommendation methods such as Collaborative Filtering (CF) and Content-Based Filtering (CB) to enhance recommendation accuracy and precision. Instead of performing sentiment analysis, we used the pre-existing sentiment scores, found in the dataset associated with the paper, and enriched it by integrating additional movie metadata from the \textbf{TMDB API}, trying to create a more robust content-based filtering system and to build a hybrid recommender system that integrates similarity among users, movie content, and public sentiment.
+
+\section{Outline of the project}
+\label{sec:section_1_2}%
+
+In this report, we detail the development of a movie recommender system leveraging microblogging data from the \textbf{MovieTweetings dataset} and enhancing it with metadata from the \textbf{TMDB API}. The following sections outline the major steps taken during the project:
+
+\subsection{Data Preprocessing and Data Analysis}
+    \begin{itemize}
+        \item \textbf{Initial Data:} Preprocess and analyze the initial dataset containing user ratings from pre-computed scores of microblogging data, and basic movie data.
+        \item \textbf{Data Augmentation:} Integration of additional movie metadata (e.g., director, cast, runtime) from the \textbf{TMDB API} to enrich the dataset.
+        \item \textbf{Final Dataset:} The final dataset used for building recommendation models, then adapted for the CF and CB recommenders.
+    \end{itemize}
+
+\subsection{Collaborative Filtering Recommendation System}
+    \begin{itemize}
+        \item \textbf{Data Preparation:} Organizing data for collaborative filtering (CF) recommender systems.
+        \item \textbf{Most Popular Recommender:} A simple recommender system based on movie popularity.
+        \item \textbf{CF recommender with Funk-SVD:} A CF recommender system based on user-movie interactions.
+    \end{itemize}
+
+\subsection{Content-Based Recommendation System}
+    \begin{itemize}
+        \item \textbf{Data Preparation:} Structuring the enriched dataset for content-based filtering (CB), maintaining mainly the most relevant attributes.
+        \item \textbf{Simple CB Recommender:} A basic CB model, recommending movies based on movie attributes.
+        \item \textbf{Feature Augmentation:} Expanding the feature set using the metadata from the \textbf{TMDB API}, specifically the \textbf{overview} data, to improve recommendations.
+    \end{itemize}
+
+\subsection{Hybrid Recommendation System}
+    \begin{itemize}
+        \item \textbf{Overview:} Introduction to hybrid recommendation techniques combining CF and CBF.
+        \item \textbf{Mixed Hybrid System:} Combining CF and CBF directly to improve recommendations, using the intersection and the union, depending on the common recommended movies.
+        \item \textbf{Meta-Level Hybrid System:} Using the collaborative filtering recommender’s output as input for the content based filtering system.
+    \end{itemize}
+
+\subsection{Model Evaluation}
+    \begin{itemize}
+        \item \textbf{With Ground Truth:} Evaluating the models against known recommendations, downloaded from \textbf{TMDB API}, used as a ground truth.
+        \item \textbf{Without Ground Truth:} Approximating performance without explicit ground truth recommendations.
+    \end{itemize}
+
+This report covers each of these components more in detail, explaining some of the main steps we followed to develop, implement, and evaluate our movie recommender system.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Data preprocessing and Data Analysis}
+\label{ch:chapter_2}%
+
+\section{Initial data from preprocessed microblogging data}
+\label{sec:section_2_1}%
+In this section, we begin by focusing on the raw datasets sourced from microblogging platforms, specifically from Twitter, where user interactions and reviews about movies are captured in the form of ratings and textual comments. The primary datasets consist of three main components: movies, ratings, and users. Our goal is to preprocess the data effectively before augmenting it with external sources and performing analysis.
+
+\subsection{Movies Dataset}
+The original movies dataset from the \texttt{MovieTweetings} DB forms a critical part of the recommendation system. This dataset includes a collection of movies that users have rated in their tweets, along with metadata describing each movie.
+
+The \texttt{movies.dat} dataset contains metadata for \texttt{37.342} movies. The dataset is structured in the following format:
+\begin{itemize}
+    \item \verb|movie_id|: A unique identifier for each movie.
+    \item \verb|movie_title (movie_year)|: The title of the movie, followed by its release year, in parentheses.
+    \item \texttt{genre|genre|genre}: A pipe-separated list of genres associated with the movie.
+\end{itemize}
+The genres provide essential information for content-based recommendation systems, which compare users' past ratings with movies in similar categories. This metadata is used to form basic feature representations for the recommendation algorithm.
+
+\textbf{Example Record:} \texttt{0110912::Pulp Fiction (1994)::Crime|Thriller}
+\begin{itemize}
+    \item \verb|movie_id|: \texttt{0110912} (unique identifier for \textbf{Pulp Fiction}).
+    \item \verb|movie_title (movie_year)|: \texttt{Pulp Fiction (1994)} (the title with release year).
+    \item \texttt{genre|genre}: \texttt{Crime|Thriller} (the genres associated with the movie).
+\end{itemize}
+
+This data is fundamental for understanding the types of movies users rate, as well as the genres they may prefer. It serves as the foundation for initial content-based analysis and later models that rely on user preferences for similar movie genres.
+
+\subsection{Ratings Dataset}
+The \texttt{ratings.dat} file contains user rating data, which forms the backbone of the recommendation system. It stores the ratings that users have provided for various movies. Each entry in the dataset follows the format:
+\begin{center}
+    \verb|user_id::movie_id::rating::rating_timestamp|
+\end{center}
+Where:
+\begin{itemize}
+    \item \verb|user_id|: A unique identifier for the user who rated the movie.
+    \item \verb|movie_id|: A unique identifier for the movie being rated (corresponding to the \verb|movie_id| in the \verb|movies.dat| dataset).
+    \item \texttt{rating}: The user's rating for the movie, on a scale from 1 to 10.
+    \item \verb|rating_timestamp|: A timestamp representing when the rating was given, stored as an epoch time.
+\end{itemize}
+
+The ratings' dataset is essential for building collaborative filtering models, which rely on user preferences to make recommendations. It captures both user behavior and movie evaluations, allowing the system to learn which movies are similar based on the ratings they receive from different users.
+
+\textbf{Example Record:} \texttt{14927::0110912::9::1375657563}
+\begin{itemize}
+    \item \verb|user_id|: \texttt{14927}, representing a specific user.
+    \item \verb|movie_id|: \texttt{0110912}, corresponding to the movie \textit{Pulp Fiction} (as identified in the \texttt{movies.dat} dataset).
+    \item \texttt{rating}: \texttt{9}, meaning the user rated the movie 9 out of 10.
+    \item \verb|rating_rimestamp|: \texttt{1375657563}, which represents the time the rating was submitted.
+\end{itemize}
+
+\subsection{Data Preprocessing}
+\paragraph{Movies: Drop Duplicates}
+We start by removing exact duplicate entries from the movies' dataset. Duplicate entries can arise from data collection issues or errors during data integration, and can negatively impact the recommendation model by inflating the representation of certain movies.
+
+\paragraph{Movies: Conversion of Genre into List}
+The `\texttt{Genre}' column in the movies dataset consists of a string where multiple genres are separated by a `\texttt{|}' symbol. To transform this data into a more structure format, we first split each genre string into a list of individual genres. This allows for more efficient data manipulation and analysis, especially when creating features for the recommendation system.
+
+\paragraph{Movies: Filter Movies by Genre}
+To analyze the distribution of movie genres in the dataset, we first extract and count the frequency of each genre from the `\texttt{Genre}' column. To maintain data integrity, we first filter out movies that have undefined or incorrectly formatted genres in the `\texttt{Genre}' column.
+To focus the recommendation system on movies with genres that have sufficient representation, we filter the dataset to retain only movies whose genres appear at least 20 times.
+
+\paragraph{Movies: Extracting Title and Year}
+To enhance the usability of the movie dataset, we process the \texttt{MovieTitle(Year)} column to extract and separate the movie's title and release year. We use a regular expression to split the combined title and year into two distinct features: \texttt{Title} and \verb|Release_year|.
+
+\paragraph{Movies: Filter Movies by Release Year}
+To understand the distribution of movie releases across different years, we create a histogram that shows the number of movies released each year. This visualization helps identify trends.
+\begin{center}
+    \begin{minipage}{0.75\textwidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.85\linewidth]{Images/movies_release_per_year.png}
+            \caption{\textbf{A Century of Cinematic Growth}. \textit{The graph reveals a dramatic increase in movie production over time, with a relatively low and steady output until around 1980, followed by a sharp exponential rise through the early 2000s. The peak is around 2013, with over \texttt{2.000} movies released annually. There's a noticeable drop-off in the most recent years, possibly due to incomplete data for the most recent period.}}
+            \label{fig:movies_release_per_year}
+        \end{figure}
+    \end{minipage}
+\end{center}
+To focus the analysis on recent movies, we filter the dataset to include only those movies released between 2014 and 2017, inclusive. This timeframe was selected based on insights from the original paper considered for the project, which emphasized the importance of analyzing recent trends to ensure the recommendation system aligns with current movie preferences.
+\begin{center}
+    \begin{minipage}{0.75\textwidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.85\linewidth]{Images/movies_filtered_by_release_per_year.png}
+            \caption{\textbf{A Declining Trend from 2014 to 2017}. \textit{This graph illustrates the annual movie release count from 2014 to 2017.}}
+            \label{fig:movies_filtered_by_release_per_year}
+        \end{figure}
+    \end{minipage}
+\end{center}
+
+\paragraph{Ratings: Filter Ratings by Movie ID}
+To ensure that our ratings data is relevant and corresponds to movies in our movies' dataset, we filter the ratings DataFrame to retain only those ratings for movies that are also present in the movies' dataset. This step is crucial for maintaining data consistency and ensuring that our recommendation system operated on valid data.
+
+\paragraph{Ratings: Filter Ratings by User ID Counts}
+We filter the ratings DataFrame to retain only those users who have provided at least 20 ratings. This step helps in focusing on users who are sufficiently engaged, which is important for generating reliable recommendations.
+
+\paragraph{Movies: Filter Movies by Movie ID}
+We filter the movies DataFrame to retain only those moves present in the ratings' dataset. This step is crucial for maintaining consistency between the movies and ratings datasets.
+
+\section{Augmentation of the movies data using TMDB}
+\label{sec:section_2_2}%
+The original movies dataset from the \verb|MovieTweetings| DB provides basic metadata for each movie, such as the title, release year, and genres in the following format:
+\begin{center}
+    \verb+movie_id::movie_title (movie_year)::genre|genre|genre+
+\end{center}
+For example:
+\begin{center}
+    \verb+0110912::Pulp Fiction (1994)::Crime|Thriller+
+\end{center}
+While this structure offers valuable information, it is somewhat limited. For instance, it lacks features that may enhance the performance of the recommendation system.
+
+As suggested by the paper, to address these limitations, we augmented the original dataset by using the information provided by \verb|TMDB|, which allows access to some of its movie information through a free API.
+
+This augmented dataset allows for more sophisticated recommendation models, enabling the system to not only recommend movies based on genre but also based on factors such as plot similarity, cast members, their popularity, and other features that may be important for the users.
+
+This part was also essential since \verb|MovieTweetings| dataset uses the IMDb ID as an identifier for the movie. We first had to retrieve information about the movies by making API calls using the title as an identifier. Then we were able to merge the information with the data in \verb|MovieTweetings| consistently by retrieving more movie details with the TMDB ID, which contained also the IMDb ID, guaranteeing a successful and consistent merge.
+
+We gather detailed movie information through several data retrieval functions.
+\begin{enumerate}
+    \item \textbf{Movie Details by Title}: Retrieves comprehensive details about movies based on their titles. This includes essential information such as movie IDs, overviews, release dates, and genres.
+    \begin{center}
+        \begin{minipage}{0.75\textwidth}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.65\linewidth]{Images/data_tmdb.png}
+                \caption{\textbf{TMDB's Metadata by Title}.}
+                \label{fig:data_tmdb}
+            \end{figure}
+        \end{minipage}
+    \end{center}
+    \item \textbf{Movie Details by ID}: Fetches additional movie details using unique movie IDs. This function provides more granular information, including metadata that may not be available through title-based searches. We will keep only a part of this data, the ones specified in the paper.
+    \begin{center}
+        \begin{minipage}{0.75\textwidth}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.65\linewidth]{Images/data_attributes.png}
+                \caption{\textbf{TMDB's Metadata by Movie ID}.}
+                \label{fig:data_attributes}
+            \end{figure}
+        \end{minipage}
+    \end{center}
+    \item \textbf{Movie Credits}: Acquires information on the cast and crew involved in each movie. This includes data about actors, directors, producers, and other key personnel.
+    \begin{center}
+        \begin{minipage}{0.75\textwidth}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.45\linewidth]{Images/data_credits.png}
+                \caption{\textbf{TMDB Movie Credits}.}
+                \label{fig:data_credits}
+            \end{figure}
+        \end{minipage}
+    \end{center}
+\end{enumerate}
+
+\section{Final obtained datasets}
+\label{sec:section_2_3}%
+The effects of the preprocessing steps are reflected in the final datasets, since the distribution of values across columns changed.
+
+\paragraph{Distribution of Genres before and after Preprocessing}
+We conducted an analysis of the genre distribution within the movies dataset by extracting and counting the frequency of each genre listed in the \texttt{Genre} column. The analysis revealed 28 distinct genres with the following frequency distribution:
+\begin{center}
+    \begin{minipage}{\textwidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=\linewidth]{Images/genres_distribution_original.png}
+            \caption{\textbf{Original Genres Distribution}.}
+            \label{fig:genres_distribution_original}
+        \end{figure}
+    \end{minipage}
+\end{center}
+Upon analyzing the genre distribution, we observed that some genres were represented by a very small number of movies, so we decided to discard movies associated with genres that had fewer than 20 instances.
+
+After completing the preprocessing steps for both the movies and ratings datasets, we observed a shift in the genre distribution.
+\begin{center}
+    \begin{minipage}{\textwidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=\linewidth]{Images/genres_distribution_filters.png}
+            \caption{\textbf{Filtered Genres Distribution}.}
+            \label{fig:genres_distribution_filters}
+        \end{figure}
+    \end{minipage}
+\end{center}
+
+\paragraph{Genres Correlogram}
+One key insight from the final dataset is the interdependence of genres, which challenges the initial intuition that genres are entirely independent. The correlogram - presented below - illustrates how genres are often associated with each other, forming distinct clusters within the dataset. The dendrogram at the top suggests genre clustering based on similarity.
+\begin{center}
+    \begin{minipage}{\textwidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1\linewidth]{Images/genres_correlogram.png}
+            \caption{\textbf{Revealing Relationships}. This heatmap illustrates the correlations between various film genres. The diagonal red squares represent perfect self-correlation, while shades of red and blue indicate positive and negative correlations between different genres.}
+            \label{fig:genres_correlogram}
+        \end{figure}
+    \end{minipage}
+\end{center}
+
+\paragraph{Distribution of Ratings}
+The distribution of ratings in the dataset reveals a noticeable skew towards higher scores. This observation is illustrated in the graph below, which shows that a significant proportion of ratings are concentrated at the higher end of the rating scale. The skewness towards higher ratings can introduce a bias in the recommendation system, potentially leading to an overemphasis on highly-rated movies. This might affect the diversity of recommendations, as the system could prioritize movies with higher ratings more frequently.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/ratings_distribution.png}
+    \caption{\textbf{A Skew Towards Higher Scores}. The visualization reveals that the majority of ratings cluster around the higher scores, with ratings of 7 and 8 being the most common.}
+    \label{fig:ratings_distribution}
+\end{figure}
+
+\paragraph{Distribution of Number of Users per Number of Reviews}
+The analysis of user rating activity in the dataset reveals a distinct trend: as the number of ratings per user increases, the number of users providing those ratings decreases. Specifically, the majority of users have contributed around 25 ratings.
+
+The concentration of ratings around 25 per user indicates that many users have relatively sparse profiles. This sparsity can pose challenges for recommendation algorithms, which rely on sufficient data to generate accurate predictions and recommendations.
+\begin{center}
+    \begin{minipage}{0.75\textwidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.75\linewidth]{Images/users_distribution_per_ratings.png}
+            \caption{\textbf{Distribution of Ratings per User}. This bar chart illustrates the frequency of users providing different numbers of ratings. The x-axis shows the number of ratings given, while the y-axis represents the count of users. The data reveals a clear trend of decreasing user counts as the number of ratings increases, with the majority of users providing around 25 ratings.}
+            \label{fig:users_distribution_per_ratings}
+        \end{figure}
+    \end{minipage}
+\end{center}
+
+\paragraph{Temporal Distribution of Movie reviews (2014-2017)}
+The graph reveals distinct peaks in review activity, which are likely associated with major film releases or significant events in the movie industry. A noticeable drop in reviews is evident during the last month of each year, which could be attributed to the holiday season or end-of-year fatigue. Conversely, there is a consistent increase in reviews at the beginning of each new year. This trend suggest that users are more active in reviewing movies shortly after the year ends, possibly due to year-end reflections or resolutions to engage more with new content.
+\begin{center}
+    \begin{minipage}{\textwidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1\linewidth]{Images/ratings_in_time.png}
+            \caption{\textbf{Temporal Distribution of Movie Reviews (2014-2017)}. This line graph depicts the daily number of movie reviews from 2014 to 2017, with data extending into 2021. Each year is represented by a different color, showing distinct peaks in review activity. The graph illustrates how review frequency evolves over time, with noticeable spikes likely corresponding to major film releases or events in the movie industry.}
+            \label{fig:ratings_in_time}
+        \end{figure}
+    \end{minipage}
+\end{center}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Collaborative filtering Recommendation System}
+\label{ch:chapter_3}%
+The collaborative filtering approach to recommender systems does not require any item attributes, instead it relies on the opinions of a community of users to make suggestions. More specifically, in user-based collaborative filtering, the recommender system makes recommendations to a user based on the preferences and behaviors of other users who are similar to the target user. The most common input source for a recommender system is the User-Item Interaction Matrix, often referred to as the User Rating Matrix (URM). This matrix stores the interactions between users and items, with users typically represented in the rows and items in the columns. The interactions recorded in the URM can take various forms, such as implicit feedback (e.g., purchases, clicks, views), or explicit ratings as it is our case.
+
+In our work, we have built two collaborative-filtering based systems. The first one is a user-based approach system which we refer to as the “Most Popular” recommender, which suggests movies with the highest mean rating among users. The second system is a Matrix-Factorization approach based on the popularized Funk SVD technique.
+
+\section{Data preparation for a Collaborative Filtering Recommender}
+\label{sec:section_3_1}%
+This section didn’t require much data preparation, as the preprocessing done earlier was sufficient. We only needed the user rating data, which contains information about the interactions between users and the explicit ratings they have provided, which functions as a COO (Coordinate) sparse representation of the URM (in the notebook is referred to as \verb|flattened_URM)|.
+
+\section{Most Popular recommender}
+\label{sec:section_3_2}%
+
+The “Most Popular” recommender is one of the simplest user-based Collaborative filtering techniques. It consists of a recommender system which identifies and suggests the movies that have the highest average rating across all users who have rated that movie.
+
+The underlying assumption is that movies with the highest average rating are likely to be the most popular and well-liked by the user community, and it can be assumed that they will also be liked by the users who haven’t watched them yet. The advantage of this approach is that the system will always suggest items that are likely to be liked by users. However, this comes at the cost of making static recommendations that are not personalized to the individual user's preferences.
+
+However, due to characteristics of the URM, we may have some movies that have been rated by hundreds or thousands of users, while others have only a single rating. Blindly computing the mean rating of movies across all users who have rated them would therefore not be appropriate, as movies with just a few good ratings could end up being recommended as the most popular, which would defeat the purpose of a recommender system that aims to base its suggestions on the collective opinions of the user community. To avoid this negative side effect we introduce in the denominator of the mean computation a correcting factor also known as \textbf{“Shrinkage factor”}, which helps to lower the importance of movies that have only a few ratings, ensuring that the most popular recommendations are based on a more robust set of user opinions.
+\\
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \begin{tabular}{|l|}
+            \hline
+            \textbf{Most popular} \\
+            \hline
+            1. Interstellar \\
+            2. Whiplash \\
+            3. Hacksaw Ridge \\
+            4. La La Land \\
+            5. Inside Out \\
+            \hline
+        \end{tabular}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \begin{tabular}{|l|}
+            \hline
+            \textbf{Most popular} \\
+            \hline
+            1. New Life \\
+            2. Wizard Mode \\
+            3. Negar \\
+            4. Arvydas Sabonis 11 \\
+            5. Shock Room \\
+            \hline
+        \end{tabular}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.3\textwidth}
+        \centering
+         \begin{tabular}{|l|}
+            \hline
+            \textbf{Most popular} \\
+            \hline
+            1. Interstellar \\
+            2. Dangal \\
+            3. Coco \\
+            4. Whiplash \\
+            5. Hacksaw Ridge \\
+            \hline
+        \end{tabular}
+    \end{minipage}
+    
+    \caption{\textit{Comparison of ranking obtained with three different shrinkage factors. From left to right, the shrinkage factor was set to 20, 0 and 3 (the median of number of ratings).} }
+    \label{fig:rankings}
+\end{figure}
+
+In \autoref{fig:rankings}, we can observe how different shrinkage factor values influence the movie rankings. On the left, we have set a shrinkage factor of 20, above which the rankings tend to stabilize. With a shrinkage factor of 0, we can clearly observe the complication we discussed earlier, where directly computing the mean rating leads to movies with just a few good ratings being ranked as the most popular, which defeats the purpose of the recommender system. Finally, with a shrinkage factor equal to 3, which is the median of the number of ratings for each movie, we begin to see fairly popular movies being recommended, but we still have a few outliers.
+
+\section{CF Recommender System based on Funk SVD matrix factorization}
+\label{sec:section_3_3}%
+
+Next, we implemented a method based on a matrix factorization technique that is quite appreciated in the field of Recommender Systems - the Funk SVD. Despite the name, the Funk SVD method is not directly based on the traditional Singular Value Decomposition (SVD). The one thing they have in common is that they are both matrix decomposition processes. Funk SVD was conceived to deal with sparse data, such as the URM, by factorizing the matrix into two smaller, low-rank matrices, without the need to compute the full SVD.
+
+\begin{align*}
+    R \approx P^T Q \; \; \text{where} \;\; P \in \mathbb{R}^{F \times m}\, ,  Q \in \mathbb{R}^{F \times n}
+\end{align*}
+
+The two matrices, P and Q, are obtained through a loss minimization approach. We compute the common squared error loss with Ridge regularization for each non-missing rating, and then use a gradient-based optimization technique, such as Stochastic Gradient Descent (SGD).
+
+\begin{align*}
+\mathcal{L}(p, q) = \sum_{(u,i) \in \; \text{Train}} \left( r_{ui} - \sum_{f=1}^{F} p_{uf} q_{if} \right)^2 + \lambda \left( \|p_u\|^2 + \|q_i\|^2 \right)
+\end{align*}
+
+To compute the Funk-SVD, we resorted to an already efficient implementation provided by the \textbf{surprise} library.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Content based Recommendation System}
+\label{ch:chapter_4}%
+After implementing the CF system, we developed a content-based (CB) recommender system to offer a different approach to recommendations. While CF relies on user behavior and interactions (e.g., ratings) to suggest items, CB focuses on the content of the movies themselves.
+
+In the CB system, recommendations are generated by analyzing the characteristics of movies, such as genre, actors, directors, and other key attributes. The implemented CB system identifies movies that share similar features to the one inserted by the user as favorite movie, providing personalized recommendations based on the content. This makes CB effective when user data is limited or new items are introduced.
+
+\section{Data preparation for a Content Based Recommender}
+\label{sec:section_4_1}%
+For this content-based (CB) recommendation system, we selected key movie attributes: \textbf{genre, production companies, actors, directors, writers, production countries, and original language}. These features were chosen because in our opinion they best represent the characteristics that can help users find similar movies. We will also try the same system with a variation of the feature vector, in which we will integrate also the attribute of the \textbf{overview}, trying to exploit also the similarity among the descriptions of the movies.
+
+In the preprocessing step of the CB system, we processed the data by handling missing values and combining the selected features into a single textual representation for each movie. Then, using TF-IDF (Term Frequency-Inverse Document Frequency), we transformed the combined text into numerical vectors to represent each movie based on its content.
+
+Finally, we generated a cosine similarity matrix, which computes the similarity between movies. This matrix serves as the foundation for the recommendation system, allowing us to suggest movies based on their similarity to the movies rated by the user. This enriched dataset provides a good basis for making some personalized recommendations using content-based filtering.
+
+\section{A simple CB Recommender System}
+\label{sec:section_4_2}%
+For our simple CB recommender system, we implemented a function that suggests movies similar to a user’s favorite movie based on the content features of the movies. The system relies on the cosine similarity matrix derived from the movie attributes in the preprocessing phase.
+
+The function \verb|cb_similar_movies_recommendation| prompts the user to input their favorite movie, finds the closest match in the dataset using the Longest Common Subsequence (LCS) algorithm, and retrieves movies with the highest similarity scores. The top recommendations are then displayed based on the similarity rankings.
+
+To enhance the user experience, we decided to use an auxiliary function, \verb|most_similar_word|, which matches the input movie title to the closest one in the dataset, using the LCS algorithm, ensuring that minor spelling variations are handled effectively. The system returns a list of the most similar movies, allowing users to explore content based on the characteristics of the movie they like.
+
+By combining similarity scores with intuitive title matching, our CB system recommends movies that seem to be somewhat aligned with the user's preferences.
+
+\textbf{Study case of some recommendations, given by the system:} 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.55]{Images/CB_Interstellar.png}  
+\end{figure}
+
+From the results shown in the image, we can see that for the movie \textbf{Interstellar}, we obtain 5 different recommendations. After a thorough research and analysis of the results, from a qualitative perspective, we can conclude that the system appears to be working reasonably well by recommending movies that share certain content attributes such as directors, actors, or production companies, as evidenced by Dunkirk and The Science of Interstellar. However, it also generates some less intuitive recommendations (Paint It Black, Transformers: The Last Knight) due to its reliance on attribute similarity rather than focusing deeply on genre and themes. This could be expected given that the genres are just a small part of the features. In fact, with some data analysis previously specified, we identified the presence of around \verb|25| genres, but after enriching the feature vector for the CB, we have these genres contained in the vector made of \verb|53904| words, so they have only a limited impact on the cosine similarity score and consequently on the recommendations. 
+
+\textbf{Compare system recommendations with the paper results:}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.40]{Images/Paper_Wonder_woman.png}  
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.55]{Images/CB_Wonder_woman.png}  
+\end{figure}
+The results show both systems, our CB recommender and the one explained in the paper, recommend superhero and action films related to \verb|Wonder Woman|. From the image, we can also notice that in our system, even if the user misspells the movie, we match the closest one and find the movie without re-asking the user to insert the correct one, enhancing the user experience when interacting with the system. 
+While the system proposed in the paper focuses more narrowly on recent DC Comics movies, our CB system offers a broader range of action/adventure films, including some Marvel titles and historical action movies. There's some overlap in recommendations like \verb|Justice League| and \verb|Suicide Squad|, but our system includes more diverse choices beyond just the superhero genre. Both systems capture the action theme of \verb|Wonder Woman|, but our CB system recommendations also consider strong female leads and war themes, focusing also on other movie's aspects present in the feature vector. This depends on the attributes chosen to create the feature vector, and different choices can be explored to improve the results. The system might also benefit from improved genre or thematic weighting to make recommendations more aligned with the user expectations for similar films, but this could not always be desirable, reducing serendipity.
+
+\section{Augmentation of the feature vector for the same Recommender System}
+\label{sec:section_4_3}%
+
+The goal of adding the \textbf{overview} attribute to the content-based (CB) recommender system was to enhance the recommendations by including a broader textual description of each movie. The \textbf{overview} field typically contains a summary of the movie's plot, which we expected to provide additional context about each film's themes, storyline, and general content. By including this attribute, the feature vector representing each movie becomes more detailed, and the overall feature space increases from \verb|53.904| words to \verb|66.974| words. The expectation was that this added information would help the system make more refined distinctions between movies and produce better, more relevant recommendations.
+
+Despite significantly increasing the feature vector when including the movie overview, the system produces more or less the same recommendations as before. For example, for \verb|Interstellar|, the recommendations like \verb|Dunkirk, The Science of Interstellar| \\ and \verb|Transformers: The Last Knight| remain largely unchanged. 
+
+Also, for \verb|Wonder woman|, we can see that the recommendations are more or less the same. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.55]{Images/CB_Wonder_woman_overview.png}  
+\end{figure}
+Some of the recommendations, with respect to the CB system with the feature vector without overview, are ordered differently, because the cosine similarity matrix has different values when also using the \verb|overview| attribute, but we can notice that, even if it changes some similarities, in general the same movies remain the ones considered as neighbors of the given one. 
+
+While the goal of including the overview was to enrich the feature vectors with narrative details, in practice, the system continues to produce similar recommendations. This suggests that simply adding more text-based information does not always guarantee improved results, especially if the new information doesn't strongly differentiate movies in ways that impact user preferences. The system may require further tuning, such as applying feature weighting or other advanced NLP techniques, to leverage the overview more effectively.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Hybrid Recommendation System}
+\label{ch:chapter_5}%
+After implementing both the CF and CB systems, we developed a hybrid recommender system to combine the strengths of these two approaches. While CF leverages user behavior and interactions to suggest items, and CB focuses on the content of the movies, hybrid systems aim to integrate both methods to enhance recommendation accuracy and overcome the limitations of each individual approach.
+
+In the hybrid system, we explored two key methods. The first is a mixed approach, which generates recommendations by combining the results of CF and CB through operations like intersection and union, offering suggestions that balance user preferences with content similarity. The second is a meta-level approach, where CF recommendations serve as a starting point, and CB is used to refine or expand those recommendations based on content analysis.
+
+While we expected this combination to yield more robust and accurate recommendations, the evaluation using our precision function actually resulted in lower performance compared to the individual systems. This could be due to an overlap in the limitations of CF and CB, or possibly an insufficient balance in weighting their contributions, which caused the hybrid system to recommend less relevant items in some cases. Additionally, data-related issues, such as insufficient or noisy user interaction data, incomplete content attributes, or too sparse data for certain movies (like movies with one or very few ratings), may have impacted the hybrid system's ability to provide accurate recommendations.
+
+
+\section{Hybrid techniques overview}
+\label{sec:section_5_1}%
+In our research on hybrid recommender systems, we learned about several common techniques for combining CF and CB approaches, each with its own method of leveraging the strengths of both systems:
+\begin{enumerate}
+    \item \textbf{Weighted Hybrid}: This method combines the outputs of both CF and CB models by assigning weighted averages to the recommendations from each, balancing the contributions of both systems.
+    \item \textbf{Switching Hybrid}: Here, the system switches between CF and CB depending on specific criteria, such as user behavior or characteristics of the items being recommended, ensuring flexibility in the recommendation process.
+    \item \textbf{Mixed Hybrid}: This technique presents results from both CF and CB models, either showing them separately or combining them, with the intersection or the union of the systems' results. This can help users see a wider variety of recommendations from both systems.
+    \item \textbf{Meta-Level Hybrid}: The meta-level hybrid, works as a cascade, using the output of one recommender system (typically CF) as input for another system (CB), refining or expanding the recommendations based on the content features of the items.
+\end{enumerate}
+For our project, we implemented two of these hybrid techniques: \textbf{Mixed Hybrid and Meta-Level Hybrid}.
+
+We chose to implement the Mixed Hybrid and Meta-Level Hybrid techniques primarily because of their simplicity and clarity. The Mixed Hybrid method, which combines the results of CF and CB systems using union or intersection, is straightforward and easy to interpret, allowing us to use both approaches without introducing unnecessary complexity.
+
+The Meta-Level Hybrid was attractive for its ability to refine CF recommendations using CB. This sequential process combines the user-based strength of CF with the content-based focus of CB, enabling more personalized and accurate suggestions. 
+
+The Mixed Hybrid strikes a balance between user-based and content-based recommendations, while the Meta-Level Hybrid helps fine-tune CF results, especially for new or less common items.
+
+\section{Mixed Hybrid Recommender System}
+\label{sec:section_5_2}%
+
+\subsection{CF and CB extensions for the hybrid recommender}
+To implement the hybrid system, we first extended the CF and CB recommender systems. For the CF recommender, we only changed some technical aspects of the function in order to reuse it for the hybrid system, so, in particular, we extended the CB recommender algorithm in two ways, allowing it to generate recommendations based on all movies rated by the user rather than just one input movie.
+
+The first algorithm, \verb|cb_recommendation_user_based|, considers all movies a user has rated, and for each one creates the recommendations using the basic CB recommender we explained in the previous chapter.
+
+More specifically, the algorithm works as follows:
+\begin{enumerate}
+    \item It fetches the $k$ most similar neighbors for each movie the user has rated.
+    \item Then calculates a rating prediction for each neighbor by weighting the rating of the watched movie by the similarity score between the neighbor and the watched movie.
+    \item If a candidate movie is a neighbor to multiple watched movies, its rating prediction is updated to consider the similarity to all those watched movies.
+    \item Finally, a normalizing factor (the sum of the similarity scores) is applied to bring the weighted rating within the range of 1 to 10. Additionally, a shrinkage factor of 0.1 is used to penalize candidate movies that are neighbors to only a few watched movies.
+    \item This results in a final weighted score for each recommendation, which is used to rank and provide the top recommendations. The system suggests the top $n$ candidates with the highest predicted ratings.
+\end{enumerate}
+
+The second algorithm, \verb|cb_recommendation_user_based_rating_filtering|, also considers all movies rated by the user, but only includes movies where the user’s rating is greater than 7. It aggregates recommendations for these higher-rated movies and calculates the average score for each recommended movie based on how frequently it appears. This method filters out, from the start, the movies that may not strongly reflect the user’s preferences. In this technique, though, it may also be necessary to fine tune the rating decided to use as higher-rated movies. In our case, we chose a really restrictive threshold.
+
+While both methods extend the original CB approach, we found that the first algorithm consistently provided better accuracy in the scoring, and this result could also be influenced by the threshold chosen in the second algorithm. The chosen algorithm, that will be used in the following hybrid recommender systems, considers all ratings rather than filtering by higher ratings, which may result in more diverse, but still relevant recommendations.
+
+\subsection{Mixed hybrid recommender implementation}
+The \verb|ensemble_recommendation_intersection_based| function integrates CF and CB recommendation methods to generate movie recommendations. The implemented algorithm works as follows:
+\begin{enumerate}
+    \item \textbf{Collaborative Filtering Recommendations}:
+        The function first uses a collaborative filtering model to predict which movies the user might like, based on similar users’ preferences. It retrieves a list of movie IDs recommended by this method.
+    \item \textbf{Content-Based Recommendations}:
+        Next, it performs content-based filtering. This involves recommending movies similar to those the user has already rated, using a similarity matrix that measures how alike different movies are. It extracts a list of movie IDs recommended by this approach.
+    \item \textbf{Combining Recommendations}:
+        The function finds the intersection of the CF and CB recommendations. If there are common movies, it returns these as the final recommendations. If not, it combines the recommendations from both methods and sorts them by their similarity scores to provide a cohesive list.
+    \item \textbf{Handling Shortages}:
+        If there aren’t enough common recommendations, it supplements the list with additional movies from the combined recommendations, ensuring the final list has the desired number of suggestions.
+\end{enumerate}
+Overall, this hybrid approach aims to leverage the strengths of both CF and CB methods to provide well-rounded and relevant movie recommendations.
+
+\section{Meta-level Hybrid Recommender System}
+\label{sec:section_5_3}%
+The \verb|ensemble_recommendation_meta_level| function implements a meta-level hybrid recommender system that combines CF and CB recommendations to generate movie suggestions. The meta-level hybrid implementation works as follows:
+\begin{enumerate}
+    \item \textbf{Generating CF Recommendations} :
+        The function begins by using a collaborative filtering model to generate a list of movie recommendations for the user, exactly like the previous mixed hybrid recommender system. This model predicts movies that the user might like based on the preferences of similar users.
+    \item \textbf{Refining Recommendations with CB Data}:
+        For each movie recommended by the CF model, the function then retrieves content-based recommendations. It uses a similarity matrix to find other movies similar to the CF-suggested movies. This helps to enrich the recommendations with additional relevant content.
+    \item \textbf{Aggregating and Scoring}:
+        As it gathers content-based recommendations for each CF-suggested movie, it checks for duplicate entries and collects unique movie IDs along with their content-based scores. The function aggregates these scores to provide a comprehensive list of recommendations.
+    \item \textbf{Sorting and Returning Recommendations}:
+        The collected recommendations are then sorted based on their scores in descending order. The function returns the top recommendations, ensuring that they are relevant and highly rated according to the content-based approach.
+\end{enumerate}
+Overall, this meta-level hybrid approach aims to leverage the strengths of both CF and CB methods. By combining CF recommendations with additional CB insights, it seeks to provide more diverse movie suggestions, but it seems to work even worse than the previous model, probably because getting the recommendations of the recommendations we introduce some bias in the system and reduce the precision of the result.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Model evaluation}
+\label{ch:chapter_6}%
+We evaluated the models in two ways: qualitatively, by analyzing the recommendations given by the systems, some of which we also showed in this report, and quantitatively, by comparing them with a ground truth or by computing some precision metrics on a test set created from the available data.
+
+\section{Model evaluation using the ground truth}
+\label{sec:section_6_1}%
+To evaluate our recommendation models, we tried to use data obtained from TMDB. Specifically, we used the API to download what we refer to as the "ground-truth" data, which consists of the movies that TMDB recommends when given a specific movie ID. This ground-truth data could have been important for us because it was intended to serve as a benchmark to assess the accuracy and performance of our model.
+
+After downloading the recommendations for the movies in our system, we went through a preprocessing step to clean and organize the data, making it suitable for evaluation. However, as we started analyzing the ground-truth, we noticed a significant problem. The recommendations provided by TMDB for the movie IDs we were working with did not adhere to the time frame that our model was trained on. While our model was designed to recommend movies released between 2014 and 2017, the TMDB recommendations spanned a much wider range, with movies dating all the way back to the 1980s and continuing up to the present.
+
+This mismatch in time frames caused a fundamental issue in our evaluation process. Since our model only has knowledge of movies released between 2014 and 2017, it struggled to find common ground with the broader set of movies recommended by TMDB. As a result, there was very little overlap between the movies suggested by TMDB and the ones our model was capable of recommending, making a fair comparison impossible. This lack of intersection meant that our evaluation was not meaningful, as we could not accurately measure how well our model performed against a ground-truth set that included movies far outside the time range our system was designed to handle. 
+
+Furthermore, it's important to note that the "ground-truth" we obtained from TMDB is not necessarily an objective or definitive set of correct recommendations. The movies provided by TMDB are simply its own algorithm's suggestions based on the given movie ID, and there's no guarantee that these recommendations are actually the most appropriate or relevant ones for users in all cases. So, to properly evaluate our model, we'd need actual user feedback. Relying on TMDB's recommendations alone isn't enough, as we can't confirm they're the best fit for users. User input would help us better assess whether our model is providing useful recommendations.
+
+
+\section{Model evaluation without the ground truth, computing the precision}
+\label{sec:section_6_2}%
+Given that the obtained ground-truth recommends a lot of movies that are not in the desired range of movies from 2014 to 2017, it is really hard to evaluate our model with the obtained data from \verb|TMDB| recommendations, as explained before. It could be used only by expanding our range of interest, so this can be a future development of our project.
+
+Right now, instead, we will try to evaluate the model without using any ground-truth, by leveraging the already performed train and test split in order to compute some metrics on the models, in particular the \verb|precision@5| metric. From these values and from some recommendations analyzed qualitatively, we try to extract some more insights on our models and our results.
+
+\subsection{Comparison of the complex models}
+Let's start from comparing the more complex implemented models, the mixed hybrid recommender system and the meta-level one.
+
+The meta-level hybrid recommender system shows a lower precision compared to the mixed hybrid recommender system, as indicated by its \verb|precision@5| of \verb|0.0078| versus \verb|0.0172| for the mixed system. This difference in performance can be explained by examining the nature of the recommendations each system produces and how they relate to user preferences. We will try, next, to analyze a case study from the qualitative point of view and examine the systems' metrics, to give an explanation of the obtained results.
+
+\pagebreak
+\textbf{Qualitative case study on a specific user}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.55]{Images/User_recMovie.png}  
+\end{figure}
+We compared the mixed hybrid and meta-level recommender systems for user 39, who has rated 33 movies. The mixed hybrid system recommended films like \verb|Pitch Perfect 3| and \verb|Neighbors 2|, which are sequels to movies the user rated highly. It also suggested films in line with the user's taste for action and drama, such as \verb|Dunkirk and The Hateful Eight|. This shows the system effectively considers user preferences, including genre and sequels, resulting in better-targeted recommendations.
+
+On the other hand, the meta-level recommender suggested less relevant content, including short films like \verb|Feast|, \verb|Lava| and \verb|Interstellar|, which the user had already rated, given that they are not excluded from the new recommendations of the CF-recommendations results. This system seems to rely more on metadata, leading to less useful recommendations for this user. The precision values highlight this difference, indicating that the mixed hybrid system performs better, giving more relevant suggestions by aligning better with the users' viewing history.
+
+\textbf{Possible reasons of lower precision in the meta-level hybrid system:} 
+
+The meta-level system aggregates recommendations from content-based approaches based on CF-suggested movies. If CF recommendations do not align closely with user preferences, the content-based recommendations derived from these suggestions might not be so relevant. So, the meta-level approach can sometimes lead to irrelevant recommendations if the initial CF suggestions are not well-targeted. Since content-based recommendations are based on these suggestions, they might also miss the mark, resulting in less relevant final recommendations. The system, also, relies heavily on content similarity rather than user-specific interactions. As a result, it might recommend movies that are similar in content but not necessarily aligned with the user's personal tastes or high ratings. On the contrary, the mixed hybrid system might better balance CF and CB methods to target user preferences more accurately.
+
+\subsection{Comparison of hybrid models with the basic ones}
+We performed a train test split on the user-movie-rating list (\verb|flattened_URM|) and the split consisted of simply hiding some user-movie rating entries to then evaluate the capability of the system to recommend these hidden items. As can be imagined, this technique does not offer the best evaluation metric. This is because a suggested movie may be just as well-liked by a user, but the mere fact that this movie is not present in the dataset constitutes an incorrect prediction, which penalizes the overall accuracy metric of the model. The precision function was computed as:
+\begin{equation}
+\text{Precision@k} = \frac{1}{N} \sum_{u=1}^{N} \frac{|\; \text{relevant}(u) \, \cap \, \text{recommended}(u,k) \;|}{| k |}
+\end{equation}
+
+Where for relevant items, we intend movies in the test set with a rating above a predefined threshold, which we set to 5.
+
+The observed \verb|precision@5| scores indicate that both the mixed hybrid and meta-level hybrid recommender systems underperform compared to the individual CF and CB recommenders. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.45]{Images/Results.png}  
+\end{figure}
+
+The hybrid systems, as observed in terms of precision, are less effective than the individual CF and CB recommenders due to the integration challenges they present. The mixed hybrid approach might not effectively combine recommendations, leading to less relevant suggestions, while the meta-level system's reliance on CF-based suggestions to drive content-based recommendations can result in less precise outcomes if the initial CF suggestions are not well-aligned with user preferences. In contrast, individual CF and CB methods are more specialized and optimized for capturing specific aspects of user preferences, leading to higher precision in their recommendations.
+
+Thus, the hybrid approaches struggle with the integration and reliance on potentially flawed initial recommendations, resulting in lower precision compared to the more focused and effective individual CF and CB methods. Also, the sparsity of data in the dataset, particularly the lack of reviews for many movies, can pose a significant challenge when combining the methods. Both CF and CB may encounter difficulties when working with sparse user data, and their combination may amplify these issues rather than resolve them, leading to poorer results for the hybrid system than for the individual systems. This also explains why the precision values of the Most Popular recommender and the more sophisticated Funk SVD-based approach are not vastly different. The sparsity of the data, combined with its skewness toward a few highly popular items frequently rated by users, does not allow us to appreciate the effectiveness of the Funk SVD, as in this scenario even the simpler Most Popular approach is able to achieve comparable performance.
+
+\cleardoublepage
+\begin{thebibliography}{100}
+        \bibitem{github_reference} \textbf{GitHub repository that contains the notebook of all the experiments described in this report} \href{https://github.com/BiancaSavoiu/NAML_project}{https://github.com/BiancaSavoiu/NAMLproject}
+    \end{thebibliography}
+\end{document}
