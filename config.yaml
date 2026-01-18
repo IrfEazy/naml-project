@@ -1,0 +1,41 @@
+paths:
+  data_dir: "Data"
+  movies_file: "movies.dat"
+  ratings_file: "ratings.dat"
+  movie_credits_file: "movie_credits.json"
+  movie_tmdb_attributes_file: "movie_tmdb_attributes.json"
+  tmdb_by_title_file: "tmdb_by_title.json"
+  tmdb_imdb_association_file: "tmdb_imdb_association.json"
+  tmdb_movies_file: "tmdb_movies.json"
+  imdb_movies_file: "tmdb_movies_MovieID.json"
+
+tmdb:
+  base_url: "https://api.themoviedb.org/3"
+  authentication_endpoint: "/authentication"
+  search_movie_endpoint: "/search/movie"
+  movie_details_endpoint: "/movie/{movie_id}"
+  rate_limit: 50
+  wait_time: 0.1 # seconds
+
+analysis:
+  min_ratings_per_user: 20
+  popular_genre_threshold: 20
+  year_start: 2014
+  year_end: 2017
+
+plot:
+  hist_ratings_per_user:
+    binwidth: 20
+    range_min: null # Will be set dynamically based on data
+    range_max: 200
+
+recommender:
+  random_seed: 42
+  k: 10
+  relevance_threshold: 5
+  users_to_monitor: 100
+  test_size: 0.2
+  correcting_factor: 20 # for top pop
+  content_based:
+    correcting_factor: 0.2
+    min_rating: 7
