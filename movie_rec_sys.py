@@ -1,20 +1,14 @@
 import os
-import random
 
-import numpy as np
-import pandas as pd
 from sklearn.model_selection import train_test_split
 
 from src.cleaner import DataCleaner
 from src.config import ConfigLoader
-from src.loader import DataLoader
 from src.evaluation import Evaluator
+from src.loader import DataLoader
 from src.recommenders.baseline import BaselineRecommender
 from src.recommenders.collaborative import CollaborativeRecommender
-from src.recommenders.content_based import (
-    ContentBasedRecommender,
-    ContentBasedWithFilteringRecommender,
-)
+from src.recommenders.content_based import ContentBasedRecommender
 from src.recommenders.hybrid import EnsembleRecommender, MetaEnsembleRecommender
 
 
@@ -36,7 +30,7 @@ def main():
     if not os.path.exists(credits_path):
         print("Credits file not found. Downloading...")
         # Need TMDBClient
-        from src.tmdb_client import TMDBClient
+        from src.tmdb import TMDBClient
 
         tmdb = TMDBClient(config)
         # We need tmdb_ids from association
