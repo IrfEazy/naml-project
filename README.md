@@ -6,7 +6,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/IrfEazy/naml-project">
-    <img src="Icon.png" alt="Icon" width="256">
+    <img src="icon.png" alt="Icon" width="256">
   </a>
   <h3 align="center">NAML Project</h3>
 
