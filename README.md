@@ -111,6 +111,8 @@ Despite augmenting the feature vector with movie overviews (increasing from 53,9
 
 ### Precision@5 Comparison
 
+The project evaluated multiple recommendation systems using precision@5 metrics on a train-test split. The evaluation revealed counterintuitive findings:
+
 | Recommender System | Precision@5 |
 | ------------------ | ----------- |
 | Most Popular (CF)  | ~0.0469     |
@@ -119,7 +121,10 @@ Despite augmenting the feature vector with movie overviews (increasing from 53,9
 | Mixed Hybrid       | ~0.0172     |
 | Meta-Level Hybrid  | ~0.0078     |
 
-The modest precision values reflect the challenges of working with sparse data and the inherent difficulty of predicting user preferences from limited interaction history.
+Individual CF and CB recommenders outperformed both hybrid approaches, contradicting initial expectations. The document attributes this to:
+- Data sparsity challenges (users averaging ~25 ratings)
+- Integration difficulties in combining heterogeneous recommendation signals
+- The meta-level approach introducing bias by using "recommendations of recommendations"
 
 ## References
 
